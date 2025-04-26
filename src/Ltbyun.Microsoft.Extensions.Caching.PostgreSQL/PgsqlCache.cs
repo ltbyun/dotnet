@@ -11,9 +11,9 @@ namespace Ltbyun.Microsoft.Extensions.Caching.PostgreSQL;
 /// <summary>
 /// Distributed cache implementation using pgsql database.
 /// </summary>
-public class PgsqlCache: IDistributedCache, IDisposable
+public class PgsqlCache : IDistributedCache, IDisposable
 {
-private static readonly TimeSpan MinimumExpiredItemsDeletionInterval = TimeSpan.FromMinutes(5);
+    private static readonly TimeSpan MinimumExpiredItemsDeletionInterval = TimeSpan.FromMinutes(5);
     private static readonly TimeSpan DefaultExpiredItemsDeletionInterval = TimeSpan.FromMinutes(30);
 
     private readonly NpgsqlDataSource _dataSource;
@@ -39,16 +39,19 @@ private static readonly TimeSpan MinimumExpiredItemsDeletionInterval = TimeSpan.
             throw new ArgumentException(
                 $"{nameof(PgsqlCacheOptions.ConnectionString)} cannot be empty or null.");
         }
+
         if (string.IsNullOrEmpty(cacheOptions.SchemaName))
         {
             throw new ArgumentException(
                 $"{nameof(PgsqlCacheOptions.SchemaName)} cannot be empty or null.");
         }
+
         if (string.IsNullOrEmpty(cacheOptions.TableName))
         {
             throw new ArgumentException(
                 $"{nameof(PgsqlCacheOptions.TableName)} cannot be empty or null.");
         }
+
         if (cacheOptions.ExpiredItemsDeletionInterval.HasValue &&
             cacheOptions.ExpiredItemsDeletionInterval.Value < MinimumExpiredItemsDeletionInterval)
         {
@@ -56,6 +59,7 @@ private static readonly TimeSpan MinimumExpiredItemsDeletionInterval = TimeSpan.
                 $"{nameof(PgsqlCacheOptions.ExpiredItemsDeletionInterval)} cannot be less than the minimum " +
                 $"value of {MinimumExpiredItemsDeletionInterval.TotalMinutes} minutes.");
         }
+
         if (cacheOptions.DefaultSlidingExpiration <= TimeSpan.Zero)
         {
 #pragma warning disable CA2208 // Instantiate argument exceptions correctly
@@ -78,6 +82,10 @@ private static readonly TimeSpan MinimumExpiredItemsDeletionInterval = TimeSpan.
             cacheOptions.SchemaName,
             cacheOptions.TableName,
             _systemClock);
+        if (cacheOptions.CreateTableIfNotExists)
+        {
+            _dbOperations.CreateTableIfNotExists();
+        }
     }
 
     /// <inheritdoc />
@@ -217,10 +225,7 @@ private static readonly TimeSpan MinimumExpiredItemsDeletionInterval = TimeSpan.
             && !options.AbsoluteExpirationRelativeToNow.HasValue
             && !options.SlidingExpiration.HasValue)
         {
-            options = new DistributedCacheEntryOptions()
-            {
-                SlidingExpiration = _defaultSlidingExpiration
-            };
+            options = new DistributedCacheEntryOptions() { SlidingExpiration = _defaultSlidingExpiration };
         }
     }
 }

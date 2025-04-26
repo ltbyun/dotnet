@@ -10,16 +10,16 @@ namespace Ltbyun.Microsoft.Extensions.Caching.PostgreSQL.Tests;
 public class PgsqlCacheTest
 {
     private readonly string _connectionString =
-        "Host=localhost;Port=5432;Username=dev;Password=domiyi_2018;Database=paper_world;SSL Mode=Disable";
+        "Host=localhost;Port=5432;Username=dev;Password=domiyi_2018;Database=postgres;SSL Mode=Disable";
 
-    private readonly string _schemaName = "asrs_call";
+    private readonly string _schemaName = "dotnet";
     private readonly string _tableName = "asp_net_core_cache";
 
     [Fact]
     public async Task ReturnsNullValue_ForNonExistingCacheItem()
     {
         // Arrange
-        var cache = GetSqlServerCache();
+        var cache = GetPgsqlCache();
 
         // Act
         var value = await cache.GetAsync("NonExisting");
@@ -35,7 +35,7 @@ public class PgsqlCacheTest
         var testClock = new TestClock();
         var key = Guid.NewGuid().ToString();
         var expectedValue = Encoding.UTF8.GetBytes("Hello, World!");
-        var cache = GetSqlServerCache(GetCacheOptions(testClock));
+        var cache = GetPgsqlCache(GetCacheOptions(testClock));
 
         // Act & Assert
         var exception = await Assert.ThrowsAsync<InvalidOperationException>(() =>
@@ -57,7 +57,7 @@ public class PgsqlCacheTest
         var key = new string('a', 200);
         var testClock = new TestClock();
         var expectedValue = Encoding.UTF8.GetBytes("Hello, World!");
-        var cache = GetSqlServerCache(GetCacheOptions(testClock));
+        var cache = GetPgsqlCache(GetCacheOptions(testClock));
 
         // Act
         await cache.SetAsync(
@@ -84,7 +84,7 @@ public class PgsqlCacheTest
         var testClock = new TestClock();
         var expectedValue = Encoding.UTF8.GetBytes("Hello, World!");
         var cacheOptions = GetCacheOptions(testClock);
-        var cache = GetSqlServerCache(cacheOptions);
+        var cache = GetPgsqlCache(cacheOptions);
         var expectedExpirationTime = testClock.UtcNow.Add(cacheOptions.DefaultSlidingExpiration);
 
         // Act
@@ -123,7 +123,7 @@ public class PgsqlCacheTest
         var expectedValue = Encoding.UTF8.GetBytes("Hello, World!");
         var cacheOptions = GetCacheOptions(testClock);
         cacheOptions.DefaultSlidingExpiration = cacheOptions.DefaultSlidingExpiration.Add(TimeSpan.FromMinutes(10));
-        var cache = GetSqlServerCache(cacheOptions);
+        var cache = GetPgsqlCache(cacheOptions);
         var expectedExpirationTime = testClock.UtcNow.Add(cacheOptions.DefaultSlidingExpiration);
 
         // Act
@@ -161,7 +161,7 @@ public class PgsqlCacheTest
         var key = new string('b', NpgsqlParameterCollectionExtensions.CacheItemIdColumnWidth + 1);
         var testClock = new TestClock();
         var expectedValue = Encoding.UTF8.GetBytes("Hello, World!");
-        var cache = GetSqlServerCache(GetCacheOptions(testClock));
+        var cache = GetPgsqlCache(GetCacheOptions(testClock));
 
         // Act
         await cache.SetAsync(
@@ -182,7 +182,7 @@ public class PgsqlCacheTest
         // Arrange
         var testClock = new TestClock();
         var key = Guid.NewGuid().ToString();
-        var cache = GetSqlServerCache(GetCacheOptions(testClock));
+        var cache = GetPgsqlCache(GetCacheOptions(testClock));
         await cache.SetAsync(
             key,
             Encoding.UTF8.GetBytes("Hello, World!"),
@@ -207,7 +207,7 @@ public class PgsqlCacheTest
         var testClock = new TestClock();
         var slidingExpirationWindow = TimeSpan.FromSeconds(10);
         var key = Guid.NewGuid().ToString();
-        var cache = GetSqlServerCache(GetCacheOptions(testClock));
+        var cache = GetPgsqlCache(GetCacheOptions(testClock));
         var expectedValue = Encoding.UTF8.GetBytes("Hello, World!");
         var expectedExpirationTime = testClock.UtcNow.AddSeconds(expected);
         await cache.SetAsync(
@@ -238,7 +238,7 @@ public class PgsqlCacheTest
         var slidingExpiration = TimeSpan.FromSeconds(5);
         var absoluteExpiration = utcNow.Add(TimeSpan.FromSeconds(20));
         var key = Guid.NewGuid().ToString();
-        var cache = GetSqlServerCache(GetCacheOptions(testClock));
+        var cache = GetPgsqlCache(GetCacheOptions(testClock));
         var expectedValue = Encoding.UTF8.GetBytes("Hello, World!");
         await cache.SetAsync(
             key,
@@ -262,7 +262,7 @@ public class PgsqlCacheTest
         // Arrange
         var testClock = new TestClock();
         var key = Guid.NewGuid().ToString();
-        var cache = GetSqlServerCache(GetCacheOptions(testClock));
+        var cache = GetPgsqlCache(GetCacheOptions(testClock));
         await cache.SetAsync(
             key,
             Encoding.UTF8.GetBytes("Hello, World!"),
@@ -284,7 +284,7 @@ public class PgsqlCacheTest
         // Arrange
         var testClock = new TestClock();
         var key = Guid.NewGuid().ToString();
-        var cache = GetSqlServerCache(GetCacheOptions(testClock));
+        var cache = GetPgsqlCache(GetCacheOptions(testClock));
         await cache.SetAsync(
             key,
             Encoding.UTF8.GetBytes("Hello, World!"),
@@ -308,7 +308,7 @@ public class PgsqlCacheTest
         var testClock = new TestClock();
         var absoluteExpirationRelativeToUtcNow = TimeSpan.FromSeconds(10);
         var key = Guid.NewGuid().ToString();
-        var cache = GetSqlServerCache(GetCacheOptions(testClock));
+        var cache = GetPgsqlCache(GetCacheOptions(testClock));
         var expectedValue = Encoding.UTF8.GetBytes("Hello, World!");
         var expectedAbsoluteExpiration = testClock.UtcNow.Add(absoluteExpirationRelativeToUtcNow);
 
@@ -336,7 +336,7 @@ public class PgsqlCacheTest
         var testClock = new TestClock();
         var expectedAbsoluteExpiration = new DateTimeOffset(2025, 1, 1, 1, 0, 0, TimeSpan.Zero);
         var key = Guid.NewGuid().ToString();
-        var cache = GetSqlServerCache();
+        var cache = GetPgsqlCache();
         var expectedValue = Encoding.UTF8.GetBytes("Hello, World!");
 
         // Act
@@ -362,7 +362,7 @@ public class PgsqlCacheTest
         // Arrange
         var testClock = new TestClock();
         var key = Guid.NewGuid().ToString();
-        var cache = GetSqlServerCache(GetCacheOptions(testClock));
+        var cache = GetPgsqlCache(GetCacheOptions(testClock));
         var expectedValue = Encoding.UTF8.GetBytes("Hello, World!");
         var absoluteExpiration = testClock.UtcNow.Add(TimeSpan.FromSeconds(10));
 
@@ -403,7 +403,7 @@ public class PgsqlCacheTest
         // Arrange
         var testClock = new TestClock();
         var key = Guid.NewGuid().ToString();
-        var cache = GetSqlServerCache(GetCacheOptions(testClock));
+        var cache = GetPgsqlCache(GetCacheOptions(testClock));
         var expectedValue = new byte[DefaultValueColumnWidth + 100];
         var absoluteExpiration = testClock.UtcNow.Add(TimeSpan.FromSeconds(10));
 
@@ -431,7 +431,7 @@ public class PgsqlCacheTest
         var testClock = new TestClock();
         var slidingExpiration = TimeSpan.FromSeconds(10);
         var key = Guid.NewGuid().ToString();
-        var cache = GetSqlServerCache(GetCacheOptions(testClock));
+        var cache = GetPgsqlCache(GetCacheOptions(testClock));
         var expectedValue = Encoding.UTF8.GetBytes("Hello, World!");
         // The operations Set and Refresh here extend the sliding expiration 2 times.
         var expectedExpiresAtTime = testClock.UtcNow.AddSeconds(15);
@@ -462,7 +462,7 @@ public class PgsqlCacheTest
         var slidingExpiration = TimeSpan.FromSeconds(5);
         var absoluteExpiration = utcNow.Add(TimeSpan.FromSeconds(20));
         var key = Guid.NewGuid().ToString();
-        var cache = GetSqlServerCache(GetCacheOptions(testClock));
+        var cache = GetPgsqlCache(GetCacheOptions(testClock));
         var expectedValue = Encoding.UTF8.GetBytes("Hello, World!");
         await cache.SetAsync(
             key,
@@ -517,7 +517,7 @@ public class PgsqlCacheTest
         var absoluteExpirationRelativeToNow = TimeSpan.FromSeconds(30);
         var expectedExpiresAtTime = testClock.UtcNow.Add(absoluteExpirationRelativeToNow);
         var key = Guid.NewGuid().ToString();
-        var cache = GetSqlServerCache(GetCacheOptions(testClock));
+        var cache = GetPgsqlCache(GetCacheOptions(testClock));
         var expectedValue = Encoding.UTF8.GetBytes("Hello, World!");
         await cache.SetAsync(
             key,
@@ -545,7 +545,7 @@ public class PgsqlCacheTest
         var testClock = new TestClock();
         var slidingExpiration = TimeSpan.FromSeconds(10);
         var key = Guid.NewGuid().ToString();
-        var cache = GetSqlServerCache(GetCacheOptions(testClock));
+        var cache = GetPgsqlCache(GetCacheOptions(testClock));
         var expectedValue = Encoding.UTF8.GetBytes("Hello, World!");
         // The operations Set and Refresh here extend the sliding expiration 2 times.
         var expectedExpiresAtTime = testClock.UtcNow.AddSeconds(15);
@@ -572,7 +572,7 @@ public class PgsqlCacheTest
     {
         // Arrange
         var key = Guid.NewGuid().ToString().ToLower(CultureInfo.InvariantCulture); // lower case
-        var cache = GetSqlServerCache();
+        var cache = GetPgsqlCache();
         await cache.SetAsync(
             key,
             Encoding.UTF8.GetBytes("Hello, World!"),
@@ -590,7 +590,7 @@ public class PgsqlCacheTest
     {
         // Arrange
         var key = string.Format(CultureInfo.InvariantCulture, "  {0}  ", Guid.NewGuid()); // with trailing spaces
-        var cache = GetSqlServerCache();
+        var cache = GetPgsqlCache();
         var expectedValue = Encoding.UTF8.GetBytes("Hello, World!");
         await cache.SetAsync(
             key,
@@ -610,7 +610,7 @@ public class PgsqlCacheTest
     {
         // Arrange
         var key = Guid.NewGuid().ToString();
-        var cache = GetSqlServerCache();
+        var cache = GetPgsqlCache();
         await cache.SetAsync(
             key,
             Encoding.UTF8.GetBytes("Hello, World!"),
@@ -624,7 +624,7 @@ public class PgsqlCacheTest
         Assert.Null(cacheItemInfo);
     }
 
-    private IDistributedCache GetSqlServerCache(PgsqlCacheOptions? options = null)
+    private IDistributedCache GetPgsqlCache(PgsqlCacheOptions? options = null)
     {
         if (options == null)
         {

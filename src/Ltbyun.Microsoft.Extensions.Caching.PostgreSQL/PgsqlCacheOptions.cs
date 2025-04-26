@@ -41,6 +41,11 @@ public class PgsqlCacheOptions : IOptions<PgsqlCacheOptions>
     public string? TableName { get; set; }
 
     /// <summary>
+    /// Whether to create table if not exists. pgsql version less than 9.1 is not supported.
+    /// </summary>
+    public bool CreateTableIfNotExists { get; set; } = true;
+
+    /// <summary>
     /// The default sliding expiration set for a cache entry if neither Absolute or SlidingExpiration has been set explicitly.
     /// By default, its 20 minutes.
     /// </summary>
@@ -48,9 +53,6 @@ public class PgsqlCacheOptions : IOptions<PgsqlCacheOptions>
 
     PgsqlCacheOptions IOptions<PgsqlCacheOptions>.Value
     {
-        get
-        {
-            return this;
-        }
+        get { return this; }
     }
 }

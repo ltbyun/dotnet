@@ -6,6 +6,7 @@ namespace Ltbyun.Microsoft.Extensions.Caching.PostgreSQL;
 
 internal interface IDatabaseOperations
 {
+    void CreateTableIfNotExists();
     byte[]? GetCacheItem(string key);
 
     Task<byte[]?> GetCacheItemAsync(string key, CancellationToken token = default(CancellationToken));

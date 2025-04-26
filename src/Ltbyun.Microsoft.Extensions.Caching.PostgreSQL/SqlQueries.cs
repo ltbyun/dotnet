@@ -4,6 +4,18 @@ namespace Ltbyun.Microsoft.Extensions.Caching.PostgreSQL;
 
 internal sealed class SqlQueries
 {
+    private const string CreateTableFormat =
+        """
+        CREATE TABLE IF NOT EXISTS {0} (
+          "id" varchar(200) NOT NULL,
+          "value" bytea,
+          "expires_at_time" timestamptz(6) NOT NULL,
+          "sliding_expiration_in_seconds" int8,
+          "absolute_expiration" timestamptz(6),
+          PRIMARY KEY ("id")
+        )
+        """;
+
     private const string UpdateCacheItemFormat =
         "UPDATE {0} " +
         "SET expires_at_time = " +
@@ -37,6 +49,7 @@ internal sealed class SqlQueries
     {
         var tableNameWithSchema = string.Format(CultureInfo.InvariantCulture, "{0}.{1}", schemaName, tableName);
 
+        CreateTable = string.Format(CultureInfo.InvariantCulture, CreateTableFormat, tableNameWithSchema);
         // when retrieving an item, we do an UPDATE first and then a SELECT
         GetCacheItem = string.Format(CultureInfo.InvariantCulture, UpdateCacheItemFormat + GetCacheItemFormat,
             tableNameWithSchema);
@@ -47,6 +60,8 @@ internal sealed class SqlQueries
             string.Format(CultureInfo.InvariantCulture, DeleteExpiredCacheItemsFormat, tableNameWithSchema);
         SetCacheItem = string.Format(CultureInfo.InvariantCulture, SetCacheItemFormat, tableNameWithSchema);
     }
+
+    public string CreateTable { get; }
 
     public string GetCacheItem { get; }
 

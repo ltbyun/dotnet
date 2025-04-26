@@ -31,6 +31,12 @@ internal sealed class DatabaseOperations : IDatabaseOperations
 
     private ISystemClock SystemClock { get; }
 
+    public void CreateTableIfNotExists()
+    {
+        using var command = _dataSource.CreateCommand(SqlQueries.CreateTable);
+        command.ExecuteNonQuery();
+    }
+
     public void DeleteCacheItem(string key)
     {
         using var command = _dataSource.CreateCommand(SqlQueries.DeleteCacheItem);
