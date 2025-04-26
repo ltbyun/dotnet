@@ -7,7 +7,6 @@
     <Nullable>enable</Nullable>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
     <PackageTags>cache;distributedcache;postgresql</PackageTags>
-    <NoWarn>NU5048</NoWarn>
     <IsPackable>true</IsPackable>
     <IsShipping>true</IsShipping>
     <Version>8.0.0</Version>
