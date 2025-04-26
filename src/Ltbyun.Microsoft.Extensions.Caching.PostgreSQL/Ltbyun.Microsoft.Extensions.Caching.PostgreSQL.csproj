@@ -7,6 +7,7 @@
     <Nullable>enable</Nullable>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
     <PackageTags>cache;distributedcache;postgresql</PackageTags>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
     <IsPackable>true</IsPackable>
     <IsShipping>true</IsShipping>
     <Version>8.0.1</Version>
@@ -20,5 +21,9 @@
     <PackageReference Include="Microsoft.Extensions.Caching.Abstractions" Version="8.0.0"/>
     <PackageReference Include="Microsoft.Extensions.Options" Version="8.0.0"/>
     <PackageReference Include="Npgsql" Version="8.0.3"/>
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="README.md" Pack="true" PackagePath="\"/>
   </ItemGroup>
 </Project>
