@@ -1,0 +1,12 @@
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <RepositoryUrl>https://github.com/ltbyun/dotnet</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+  </PropertyGroup>
+
+  <!-- Warnings and errors -->
+  <PropertyGroup>
+    <!-- xUnit1004 = warns about skipped tests. Make this a non-fatal build warning. -->
+    <WarningsNotAsErrors>xUnit1004</WarningsNotAsErrors>
+  </PropertyGroup>
+</Project>

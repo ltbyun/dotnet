@@ -80,6 +80,7 @@ private static readonly TimeSpan MinimumExpiredItemsDeletionInterval = TimeSpan.
             _systemClock);
     }
 
+    /// <inheritdoc />
     public void Dispose()
     {
         _dataSource.Dispose();

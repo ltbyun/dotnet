@@ -25,6 +25,9 @@ public class PgsqlCacheOptions : IOptions<PgsqlCacheOptions>
     /// </summary>
     public string? ConnectionString { get; set; }
 
+    /// <summary>
+    /// The data source used to cache
+    /// </summary>
     public NpgsqlDataSource? DataSource { get; set; }
 
     /// <summary>
