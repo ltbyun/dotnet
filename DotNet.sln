@@ -1,0 +1,22 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ltbyun.Microsoft.Extensions.Caching.PostgreSQL", "src\Ltbyun.Microsoft.Extensions.Caching.PostgreSQL\Ltbyun.Microsoft.Extensions.Caching.PostgreSQL.csproj", "{9F6A675B-E3D2-4404-A67F-69F83639089D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Ltbyun.Microsoft.Extensions.Caching.PostgreSQL.Tests", "src\Ltbyun.Microsoft.Extensions.Caching.PostgreSQL.Tests\Ltbyun.Microsoft.Extensions.Caching.PostgreSQL.Tests.csproj", "{97443F07-0095-4A77-AE63-520824369258}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{9F6A675B-E3D2-4404-A67F-69F83639089D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9F6A675B-E3D2-4404-A67F-69F83639089D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9F6A675B-E3D2-4404-A67F-69F83639089D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9F6A675B-E3D2-4404-A67F-69F83639089D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{97443F07-0095-4A77-AE63-520824369258}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{97443F07-0095-4A77-AE63-520824369258}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{97443F07-0095-4A77-AE63-520824369258}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{97443F07-0095-4A77-AE63-520824369258}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
