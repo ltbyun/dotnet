@@ -11,6 +11,15 @@
     <IsPackable>true</IsPackable>
     <IsShipping>true</IsShipping>
     <Version>8.0.1</Version>
+    <PackageId>Ltbyun.Microsoft.Extensions.Caching.PostgreSQL</PackageId>
+    <Authors>Ltbyun</Authors>
+
+    <!-- 许可证配置 -->
+    <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
+
+    <!-- 生成符号包（.snupkg） -->
+    <IncludeSymbols>true</IncludeSymbols>
+    <SymbolPackageFormat>snupkg</SymbolPackageFormat>
   </PropertyGroup>
 
   <ItemGroup>
